@@ -1,6 +1,18 @@
-<form>
-    <div *ngFor="let item of getKeys(jsonResponse[0])">
-        <input type="text" placeholder="{{item}}" name="{{item}}">
+<div class="container">
+    <mat-card class="content">
+        <mat-card-header>
+            <mat-card-title>Formulário</mat-card-title>
+        </mat-card-header>
         <br>
-    </div>
-</form>
+        <mat-card-content>
+            <form>
+                <div *ngFor="let item of camposDoForm">
+                    <mat-form-field class="col-md-4">
+                        <mat-label>{{item.nome}}</mat-label>
+                        <input matInput placeholder={{item.rotulo}} type={{item.tipo}} name={{item.nome}}>
+                    </mat-form-field>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
