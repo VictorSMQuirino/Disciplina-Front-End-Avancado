@@ -7,17 +7,20 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectorSelecionaTarefa } from '../../store/tarefa.seletors';
 import { removerTarefa } from '../../store/tarefa.action';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-show-tarefas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './show-tarefas.component.html',
   styleUrl: './show-tarefas.component.css'
 })
 export class ShowTarefasComponent implements OnInit {
   tarefas: Tarefa[] = [{id: '1', descricao: 'Descrição 1'},];
   tasks$!: Observable<TarefaState>;
+  tarefaParaAtualizar!: Tarefa;
+  nomeTarefa!: string;
 
   constructor(private store: Store<{tarefas: TarefaState}>) { }
 
@@ -32,7 +35,16 @@ export class ShowTarefasComponent implements OnInit {
     this.store.dispatch(removerTarefa({id: id}));
   }
 
-  atualizarTarefa(tarefa: Tarefa) {
+  selecionarIndexTarefa(index: number) {
+    this.tarefaParaAtualizar = this.tarefas[index];
+  }
+
+  atualizarTarefa() {
+    const tarefa: Tarefa = {
+      id: this.tarefaParaAtualizar.id,
+      descricao: this.nomeTarefa
+    };
     this.store.dispatch(atualizarTarefa({tarefa: tarefa}));
+    this.nomeTarefa = '';
   }
 }
