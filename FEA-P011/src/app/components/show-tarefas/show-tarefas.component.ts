@@ -1,3 +1,4 @@
+import { atualizarTarefa } from './../../store/tarefa.action';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Tarefa } from '../../../models/tarefa.model';
@@ -29,5 +30,9 @@ export class ShowTarefasComponent implements OnInit {
 
   removeTarefa(id: string) {
     this.store.dispatch(removerTarefa({id: id}));
+  }
+
+  atualizarTarefa(tarefa: Tarefa) {
+    this.store.dispatch(atualizarTarefa({tarefa: tarefa}));
   }
 }
