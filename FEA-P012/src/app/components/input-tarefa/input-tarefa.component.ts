@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { tarefaStore } from '../../store/tarefa.store';
+import { Tarefa } from '../../models/tarefa.model';
 
 @Component({
   selector: 'app-input-tarefa',
@@ -11,8 +13,19 @@ import { FormsModule } from '@angular/forms';
 })
 export class InputTarefaComponent {
   newTask = '';
+  public readonly tarefaStore = inject(tarefaStore);
+
+  constructor() {}
 
   addTask() {
-    
+    const tarefa: Tarefa = {
+      id: this.generateId(),
+      descricao: this.newTask
+    }
+    this.tarefaStore.adicionarTarefa(tarefa);
+  }
+
+  generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 }
