@@ -23,6 +23,7 @@ export class InputTarefaComponent {
       descricao: this.newTask
     }
     this.tarefaStore.adicionarTarefa(tarefa);
+    this.newTask = '';
   }
 
   generateId() {
